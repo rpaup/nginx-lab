@@ -4,6 +4,6 @@ services:
   web:
     image: nginx:1.27-alpine
     ports:
-      - "8080:80"
+      - "3000:80"
     volumes:
       - ./code:/usr/share/nginx/html
