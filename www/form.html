@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация на турнир — Pro Edition</title>
+
+    <!-- Подключаем современный шрифт Inter с Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS-переменные для легкой смены дизайна (темизация) */
+        :root {
+            --primary-color: #6366F1;
+            /* Фиолетовый */
+            --primary-color-hover: #4F46E5;
+            --background-color: #F3F4F6;
+            /* Светло-серый фон */
+            --form-background: #FFFFFF;
+            --text-color: #1F2937;
+            --label-color: #4B5563;
+            --border-color: #D1D5DB;
+            --border-focus-color: var(--primary-color);
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --font-family: 'Inter', sans-serif;
+        }
+
+        /* Глобальные стили и сброс */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Контейнер формы в виде "карточки" */
+        .form-container {
+            background-color: var(--form-background);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--label-color);
+        }
+
+        /* Стили для всех полей ввода */
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: #fff;
+            font-family: inherit;
+            font-size: 16px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--border-focus-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Кастомные радио-кнопки и чекбоксы */
+        .custom-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .custom-control input {
+            display: none;
+            /* Скрываем оригинальный инпут */
+        }
+
+        .custom-control .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            /* Круг для радио */
+            display: inline-block;
+            position: relative;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .custom-control input[type="checkbox"]+.checkmark {
+            border-radius: 6px;
+            /* Квадрат для чекбокса */
+        }
+
+        /* Состояние "выбрано" */
+        .custom-control input:checked+.checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Галочка/точка внутри */
+        .custom-control .checkmark::after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .custom-control input:checked+.checkmark::after {
+            display: block;
+        }
+
+        /* Точка для радио */
+        .custom-control input[type="radio"]+.checkmark::after {
+            top: 5px;
+            left: 5px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* Галочка для чекбокса */
+        .custom-control input[type="checkbox"]+.checkmark::after {
+            left: 5px;
+            top: 1px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Стили для кнопки */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-color-hover);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Блок для вывода результата */
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--background-color);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            display: none;
+            /* Скрыт по умолчанию */
+        }
+
+        #result.visible {
+            display: block;
+        }
+
+        #result h2 {
+            margin-top: 0;
+        }
+
+        #result p {
+            margin: 10px 0;
+        }
+
+        #result b {
+            color: var(--text-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="form-container">
+        <h1>Регистрация на турнир</h1>
+        <form id="tournamentForm">
+            <div class="form-group">
+                <label for="playerName">Ваше имя</label>
+                <input type="text" id="playerName" name="playerName" class="form-control"
+                    placeholder="Например, ProGamer123" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email для связи</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="player@example.com"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Возраст</label>
+                <input type="number" id="age" name="age" class="form-control" min="16" max="99" required>
+            </div>
+
+            <div class="form-group">
+                <label for="game">Выберите игру</label>
+                <select id="game" name="game" class="form-control">
+                    <option value="League of Legends">League of Legends</option>
+                    <option value="Valorant">Valorant</option>
+                    <option value="Counter-Strike 2">Counter-Strike 2</option>
+                    <option value="Dota 2">Dota 2</option>
+                    <option value="Clash Royale">Clash Royale</option>
+                    <option value="Apex Legends">Apex Legends</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Формат турнира</label>
+                <label class="custom-control">
+                    <input type="radio" name="format" value="Онлайн" checked>
+                    <span class="checkmark"></span>
+                    <span>Онлайн</span>
+                </label>
+                <label class="custom-control">
+                    <input type="radio" name="format" value="LAN">
+                    <span class="checkmark"></span>
+                    <span>LAN (оффлайн)</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="custom-control">
+                    <input type="checkbox" name="hasExperience" value="Да">
+                    <span class="checkmark"></span>
+                    <span>У меня есть опыт участия в турнирах</span>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Зарегистрироваться</button>
+        </form>
+
+        <!-- Этот блок пока не используется, но он нужен для следующего шага -->
+        <div id="result"></div>
+    </main>
+
+    <!-- JavaScript-обработчик будет добавлен на следующем шаге -->
+
+</body>
+
+</html>
