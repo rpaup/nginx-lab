@@ -273,11 +273,40 @@
             <button type="submit" class="submit-btn">Зарегистрироваться</button>
         </form>
 
-        <!-- Этот блок пока не используется, но он нужен для следующего шага -->
         <div id="result"></div>
     </main>
 
-    <!-- JavaScript-обработчик будет добавлен на следующем шаге -->
+    <script>
+        document.getElementById("tournamentForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Отменяем стандартную отправку формы
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            const data = {
+                playerName: formData.get('playerName'),
+                email: formData.get('email'),
+                age: formData.get('age'),
+                game: formData.get('game'),
+                format: formData.get('format'),
+                hasExperience: formData.get('hasExperience') ? 'Да' : 'Нет'
+            };
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `
+                        <h2>✅ Заявка успешно отправлена!</h2>
+                        <p><b>Имя:</b> ${data.playerName}</p>
+                        <p><b>Email:</b> ${data.email}</p>
+                        <p><b>Возраст:</b> ${data.age}</p>
+                        <p><b>Дисциплина:</b> ${data.game}</p>
+                        <p><b>Формат:</b> ${data.format}</p>
+                        <p><b>Опыт участия:</b> ${data.hasExperience}</p>
+                    `;
+
+            // Делаем блок с результатом видимым
+            resultDiv.classList.add('visible');
+        });
+    </script>
 
 </body>
 
