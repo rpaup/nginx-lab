@@ -20,7 +20,6 @@ session_start();
 <body>
 <div class="page-content">
     <h2>Главная страница</h2>
-
     <?php if (isset($_SESSION['errors'])): ?>
         <div class="error-box">
             <p><b>Произошли ошибки:</b></p>

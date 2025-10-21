@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 $errors = [];
 $username = trim($_POST['playerName'] ?? '');
 $email = trim($_POST['email'] ?? '');
