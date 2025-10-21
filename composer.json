@@ -1,0 +1,17 @@
+{
+    "name": "hrayr/nginx-lab",
+    "autoload": {
+        "psr-4": {
+            "Hrayr\\NginxLab\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "грайр",
+            "email": "rpaup@internet.ru"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.10"
+    }
+}
