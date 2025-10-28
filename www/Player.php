@@ -8,7 +8,8 @@ class Player {
 
     public function add($name, $email, $age, $game, $format, $experience) {
         $stmt = $this->pdo->prepare(
-            "INSERT INTO Players (name, email, age, game, format, experience) VALUES (?, ?, ?, ?, ?, ?)"
+            "INSERT INTO Players (name, email, age, game, format, experience) 
+             VALUES (?, ?, ?, ?, ?, ?)"
         );
         $stmt->execute([$name, $email, $age, $game, $format, $experience]);
     }
